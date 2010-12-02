@@ -1,0 +1,29 @@
+== Example Syslog NIF
+
+
+compile with:
+
+rebar compile
+
+run with:
+
+erl -pa ebin
+
+then:
+
+application:start(syslog).
+
+syslog:log(1,"hello logging world").
+
+
+== Notes
+
+1. Uses a gen_server and casts, so response to syslog:log/1 or log/2 is always 'ok'.
+   - If the NIF isn't loaded, you won't notice logging failures.
+2. Because only one process is handling all logging events, could bottleneck.
+   - This is just a demo, if you're really worried about performance, 
+     you don't really need to use a gen_server, and you surely have an existing
+     logging infrastructure from which you could just call the syslog module directly.
+3. We don't fully implement the syslog(3) functionality - there's no support for
+   opening or closing the log, just relying on the fact that the log will implicitly
+   open on first call.
