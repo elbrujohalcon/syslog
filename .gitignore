@@ -1,0 +1,4 @@
+priv/*
+*.swp
+c_src/*.o
+*.beam
